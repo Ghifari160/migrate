@@ -1,48 +1,19 @@
-name: Build binaries
-on:
-  workflow_call:
-    inputs:
-      production:
-        type: boolean
-        description: "Run in production mode"
-      version:
-        type: string
-        description: "Version (without leading \"v\")"
-      year:
-        type: string
-        description: "Copyright year"
+name: Build
+on: [ push, workflow_call, workflow_dispatch ]
+
 jobs:
   build-macos:
-    name: Build macOS universal binary
-    uses: ghifari160/migrate/.github/workflows/build-macos-universal.yaml@main
+    name: Build macOS binaries
+    uses: ghifari160/actions/.github/workflows/go-builder-macos.yaml@v0.2.0
     with:
-      production: ${{inputs.production}}
-      version: ${{inputs.version}}
-      year: ${{inputs.year}}
+      output: migrate
   build-linux-x86:
-    name: Build Linux x86 binary
-    uses: ghifari160/migrate/.github/workflows/build-linux.yaml@main
+    name: Build Linux binaries
+    uses: ghifari160/actions/.github/workflows/go-builder-linux.yaml@v0.2.0
     with:
-      goarch: 386
-      archid: x86
-      production: ${{inputs.production}}
-      version: ${{inputs.version}}
-      year: ${{inputs.year}}
-  build-linux-arm:
-    name: Build Linux ARM binary
-    uses: ghifari160/migrate/.github/workflows/build-linux.yaml@main
-    with:
-      goarch: arm
-      archid: arm
-      production: ${{inputs.production}}
-      version: ${{inputs.version}}
-      year: ${{inputs.year}}
+      output: migrate
   build-windows:
-    name: Build Windows binary
-    uses: ghifari160/migrate/.github/workflows/build-windows.yaml@main
+    name: Build Windows binaries
+    uses: ghifari160/actions/.github/workflows/go-builder-windows.yaml@v0.2.0
     with:
-      goarch: 386
-      archid: x86
-      production: ${{inputs.production}}
-      version: ${{inputs.version}}
-      year: ${{inputs.year}}
+      output: migrate
