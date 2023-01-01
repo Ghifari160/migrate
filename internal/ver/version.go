@@ -4,6 +4,6 @@
 package ver
 
 const (
-	CopyrightYear = 2022
-	Version   = "{%VER%}"
+	CopyrightYear = 2023
+	Version       = "{%VER%}"
 )
